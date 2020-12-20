@@ -1,0 +1,114 @@
+---
+title: "Code Book"
+author: "Michael Mazey"
+date: "12/20/2020"
+output: html_document
+---
+
+## Step 1
+
+Download the dataset from the link and put it into the respective folder in 
+/Documents/Data Science/Course 3 (Getting and Cleaning Data), naming it as 
+UCI HAR Dataset (not in the script explicitly, performed before starting script)
+
+## Step 2
+
+Import the packages of dplyr and data.table to make the transformations easier
+and more efficient.
+
+## Step 3
+
+Read in each dataset using the fread command and assign it to a variable as a 
+data table. Below are the assignments of the names of txt files on the right 
+to the variables on the left.
+
+        features                :               features.txt
+        testData                :               X_test.txt
+        trainData               :               X_train.txt
+        subjectTestData         :               subject_test.txt 
+        sujectTrainData         :               subject_train.txt
+        activityTestData        :               y_test.txt
+        activityTrainData       :               y_train.txt
+        activityLabels          :               activity_labels.txt
+        
+For each variable above, there is a description of what each means below:
+
+        features: all the features coming come from the signals of the gyrometer 
+                  and accelerometer of the cell phone [561 rows by 2 cols]
+                  
+        testData: data collected from the test subjects (30% of the subjects)
+                  [2947 rows by 561 cols]
+                  
+        trainData: data collected from the train subjects (70% of the subjects) 
+                  [7352 rows by 561 cols]
+                  
+        subjectTestData: clarifies which experimental reading was taken from which test subject
+                         (9/30 of the subjects were in the test group) [2947 rows by 1 col]
+                         
+        subjectTrainData: clarifies which experimental reading was taken from which train subject
+                         (21/30 of the subjects were in the train group) [7352 rows by 1 col]
+                         
+        activityTestData: clarifies what activity (1-6) was done during each test 
+                          experimental reading [2947 rows by 1 col]
+        
+        activityTrainData: clarifies what activity (1-6) was done during each 
+                           train experimental reading [7352 rows by 1 col]
+        
+        activityLabels: clarifies what each number in  activityTestData/activityTrainData
+                        corresponds to in terms of actual type of activity [6 rows by 2 cols]
+                
+## Step 4
+
+Merge the test and train datasets (testData and trainData) into one dataset called mergedData using 
+rbind function.
+
+mergedData [10299 rows by 561 cols]
+
+## Step 5
+
+Extract only the mean and standard deviation for each measurement.
+
+Using the grep function, find which features variables names that have either 
+mean or std
+
+indices (a 79 length character vector) refers to the variable assigned to the row 
+indices of the second column of the features data table that have either mean or
+std in the name
+
+features[indices] yields only the desired features then [79 rows by 2 cols]
+
+and mergedData[,..indices] transforms the mergedData dataset to have the correct number 
+of columns and the right columns are left
+
+
+## Step 6
+
+Add on the subject and activity data to mergedData with cbind function
+
+## Step 7
+
+Label mergedData dataset with descriptive variable names from the features second column
+Use gsub to minimize confusion around typographical errors (e.g. BodyBody becomes Body)
+
+## Step 8
+
+Use descriptive names for activities in mergedData dataset. 
+
+Create function activityTypeReplacer which relates the numbers of activity(Test/Train)Data 
+with actual type of activity in activityLabels
+
+With sapply, convert numbers to words for activities 
+
+## Step 9 
+
+Create second independent tidy dataset with average for each subject/activity pair combination
+
+Done with the group_by function in conjuction with the summarize_all function
+
+Data is tidy as each column represents an independent variable
+                each row is a different observation
+                table stores data about one kind of observation
+                
+                clearly laid out and easily readable for comparison between 
+                subjects 
+

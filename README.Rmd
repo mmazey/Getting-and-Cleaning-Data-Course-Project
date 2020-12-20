@@ -1,0 +1,49 @@
+---
+title: "README.md"
+author: "Michael Mazey"
+date: "12/20/2020"
+output: html_document
+---
+This repository is a submission on behalf of Michael Mazey for the Getting and Cleaning Data course project from Johns Hopkins on Coursera.org. It outlines the various files included in the repository and how they can be used for analysis of the Human Activity recognition dataset from UCI. 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Dataset
+
+The data can be downloaded from the following website from UCI: 
+
+<http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones>
+
+or from this zip file:
+
+<https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip>
+
+
+## Files
+
+- CodeBook.rmd 
+
+        a code book that goes over the thought process behind the script (i.e.
+        what each variable and transformation that was done and why).
+
+- run_analysis.R
+        
+        the script which does all the reading in of data and necessary transformations
+        to get all data txt files into a final dataset that is tidy and does the five
+        following things:
+                1. Merges the training and the test sets to create one data set.
+                2. Extracts only the measurements on the mean and standard deviation 
+                   for each measurement.
+                3. Uses descriptive activity names to name the activities in the 
+                   data set
+                4. Appropriately labels the data set with descriptive variable names. 
+                5. From the data set in step 4, creates a second, independent tidy
+                   data set with the average of each variable for each activity and 
+                   each subject.
+        
+- finalTidyData.txt
+        
+        final output of dataset in final form with means taken of each 
+        subject/activity pair combo
